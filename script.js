@@ -1,4 +1,4 @@
-var searchesSaved = JSON.parse(window.localStorage.getItem("userSearch")) || [];
+var searchesSaved = JSON.parse(window.localStorage.getItem("userSearch"));
 console.log(searchesSaved);
 
 for (var i = 0; i < searchesSaved.length; i++) {
@@ -99,8 +99,9 @@ function weatherInfo(userSearch) {
             } else {
                 uvColor = "red";
             }
-            $(uvIndex).text("UV Index : " + JSON.stringify(uvNumber));
-            $(uvIndex).attr("style", "background-color:" + uvColor);
+            $(uvIndex).text("UV Index: ");
+            $(span).text(JSON.stringify(uvNumber));
+            $(span).attr("style", "background-color:" + uvColor);
         })
 
 
