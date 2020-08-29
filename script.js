@@ -52,6 +52,8 @@ function weatherInfo(userSearch) {
     var wind = $("#wind");
     var uvIndex = $("#uvIndex");
     var imageUrl = "http://openweathermap.org/img/wn/"
+    var weekWeather = $("#dropfive");
+    var span = $("#span2");
 
 
     //making call to get all the weather info needed
@@ -68,9 +70,9 @@ function weatherInfo(userSearch) {
         console.log(imageUrl + response.weather[3])
 
         //current temp being added
-        $(currentTemp).text("Temperature: " + JSON.stringify(Temperature));
+        $(currentTemp).text("Temperature: " + JSON.stringify(Temperature) + "F");
         //showing humidity levels 
-        $(humidity).text("Humidity: " + JSON.stringify(response.main.humidity));
+        $(humidity).text("Humidity: " + JSON.stringify(response.main.humidity) + "%");
         console.log(response)
 
         //shows wind speed
@@ -85,7 +87,7 @@ function weatherInfo(userSearch) {
         //calling for uv index readings
         $.ajax({
             url: "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat +
-                "&lon=" + lon + "appid=" + apiKey,
+                "&lon=" + lon + "&appid=" + apiKey,
             method: "GET"
         }).then(function (uvIndexResponse) {
 
@@ -97,7 +99,44 @@ function weatherInfo(userSearch) {
             } else {
                 uvColor = "red";
             }
-            $(uvIndex).text("UV Index : " + JSON.stringify(uvIndexResponse.coord.lat));
+            $(uvIndex).text("UV Index : " + JSON.stringify(uvNumber));
+            $(uvIndex).attr("style", "background-color:" + uvColor);
+        })
+
+
+        $.ajax({
+            url: "https://api.openweathermap.org/data/2.5/forecast?q=" + userSearch + "&appid=" + apiKey,
+            method: "GET"
+        }).then(function (fiveDayResponse) {
+            console.log(fiveDayResponse)
+
+            for (var i = 0; i < fiveDayResponse.list.length; i++) {
+                if (fiveDayResponse.list[i].dt_txt.indexOf("12:00:00") !== -1) {
+                    var newCol = $("<div>").attr("class", "fivecards");
+                    weekWeather.append(newCol);
+
+                    var newCard = $("<div>").attr("class", "card text-white bg-primary");
+                    newCol.append(newCard);
+
+                    var cardHead = $("<div>").attr("class", "card-header").text(moment(fiveDayResponse.list[i].dt, "X").format("MMM Do"));
+                    newCard.append(cardHead);
+
+                    var cardImg = $("<img>").attr("class", "card-img-top").attr("src", "https://openweathermap.org/img/wn/" + fiveDayResponse.list[i].weather[0].icon + "@2x.png");
+                    newCard.append(cardImg);
+
+                    var bodyDiv = $("<div>").attr("class", "card-body");
+                    newCard.append(bodyDiv);
+
+                    bodyDiv.append($("<p>").attr("class", "card-text").html("Temp: " + fiveDayResponse.list[i].main.temp + " &#8457;"));
+                    bodyDiv.append($("<p>").attr("class", "card-text").text("Humidity: " + fiveDayResponse.list[i].main.humidity + "%"));
+
+                }
+            }
+
+
+
+
+
         })
     })
 
