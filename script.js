@@ -76,14 +76,15 @@ function weatherInfo(userSearch) {
         $(wind).text("Wind Speed: " + JSON.stringify(windSpeed) + " MPH");
         console.log(response)
 
-        var lat = response.
+        var lat = response.city.coord.lat
+        var lon = response.city.coord.lon
 
 
 
         //calling for uv index readings
         $.ajax({
-            url: "https://api.openweathermap.org/data/2.5/uvi?" + "lat=" +
-                lat + "&lon = " + lon + "&APPID = " + apiKey,
+            url: "https://api.openweathermap.org/data/2.5/uvi?APPID" + apiKey + "&lat=" +
+                lat + "&lon = " + lon,
             method: "GET"
         }).then(function (uvIndexResponse) {
 
