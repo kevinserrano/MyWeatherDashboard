@@ -50,6 +50,7 @@ function weatherInfo(userSearch) {
     var currentTemp = $("#temp");
     var humidity = $("#humidity");
     var wind = $("#wind");
+    var uvIndex = $("#uvIndex");
     var imageUrl = "http://openweathermap.org/img/wn/"
 
 
@@ -76,15 +77,15 @@ function weatherInfo(userSearch) {
         $(wind).text("Wind Speed: " + JSON.stringify(windSpeed) + " MPH");
         console.log(response)
 
-        var lat = response.city.coord.lat
-        var lon = response.city.coord.lon
+        var lat = response.coord.lat
+        var lon = response.coord.lon
 
 
 
         //calling for uv index readings
         $.ajax({
-            url: "https://api.openweathermap.org/data/2.5/uvi?APPID" + apiKey + "&lat=" +
-                lat + "&lon = " + lon,
+            url: "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat +
+                "&lon=" + lon + "appid=" + apiKey,
             method: "GET"
         }).then(function (uvIndexResponse) {
 
@@ -96,7 +97,7 @@ function weatherInfo(userSearch) {
             } else {
                 uvColor = "red";
             }
-
+            $(uvIndex).text("UV Index : " + JSON.stringify(uvIndexResponse.coord.lat));
         })
     })
 
