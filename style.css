@@ -1,5 +1,9 @@
 .col-lg-8 {
-
+    background-color: cornflowerblue;
     height: 400px;
     margin-top: 5px;
+}
+
+#main {
+    font-size: xx-large;
 }
