@@ -1,9 +1,15 @@
-var searchesSaved = JSON.parse(window.localStorage.getItem("userSearch")) || [];
-console.log(searchesSaved);
+var newSearch = $("#new-info");
 
-for (var i = 0; i < searchesSaved.length; i++) {
-    makelist(savedSearches)
+if (localStorage.getItem("userSearch") === null) {
+    searchesSaved = [];
+} else {
+    var searchesSaved = localStorage.getItem("userSearch").split(",").map(x => {
+        return x
+    });
+
 }
+
+
 var apiKey = "6441e6e31c53654c07024f7ffc57d21a";
 
 
@@ -16,7 +22,7 @@ $("body").prepend(title);
 
 $(document).ready(function () {
 
-    var newSearch = $("#new-info");
+
     //Adding event listener to my search button
     $("#button").on("click", function () {
         event.preventDefault()
@@ -33,7 +39,7 @@ $(document).ready(function () {
         searchesSaved.push(userSearch)
         //When entering new city im checking the searchesSaved var to see if city has already been searched
         //If not then push it into the searchesSaved var
-        window.localStorage.setItem(userSearch, JSON.stringify(searchesSaved));
+        window.localStorage.setItem("userSearch", searchesSaved);
         //calling a function
         weatherInfo(userSearch);
 
@@ -141,7 +147,7 @@ function weatherInfo(userSearch) {
                 }
             }
 
-            empty()
+
 
 
 
