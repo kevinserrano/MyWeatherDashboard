@@ -1,4 +1,4 @@
-var searchesSaved = JSON.parse(window.localStorage.getItem("userSearch"));
+var searchesSaved = JSON.parse(window.localStorage.getItem("userSearch")) || [];
 console.log(searchesSaved);
 
 for (var i = 0; i < searchesSaved.length; i++) {
@@ -70,7 +70,7 @@ function weatherInfo(userSearch) {
         console.log(imageUrl + response.weather[3])
 
         //current temp being added
-        $(currentTemp).text("Temperature: " + JSON.stringify(Temperature) + "F");
+        $(currentTemp).html("Temperature: " + JSON.stringify(Temperature) + " &#8457;");
         //showing humidity levels 
         $(humidity).text("Humidity: " + JSON.stringify(response.main.humidity) + "%");
         console.log(response)
@@ -106,7 +106,7 @@ function weatherInfo(userSearch) {
 
 
         $.ajax({
-            url: "https://api.openweathermap.org/data/2.5/forecast?q=" + userSearch + "&appid=" + apiKey,
+            url: "https://api.openweathermap.org/data/2.5/forecast?q=" + userSearch + "&units=imperial&appid=" + apiKey,
             method: "GET"
         }).then(function (fiveDayResponse) {
             console.log(fiveDayResponse)
@@ -128,7 +128,7 @@ function weatherInfo(userSearch) {
                     var bodyDiv = $("<div>").attr("class", "card-body");
                     newCard.append(bodyDiv);
 
-                    bodyDiv.append($("<p>").attr("class", "card-text").html("Temp: " + fiveDayResponse.list[i].main.temp + " &#8457;"));
+                    bodyDiv.append($("<p>").attr("class", "card-text").html("Temp: " + Math.floor(fiveDayResponse.list[i].main.temp) + " &#8457;"));
                     bodyDiv.append($("<p>").attr("class", "card-text").text("Humidity: " + fiveDayResponse.list[i].main.humidity + "%"));
 
                 }
