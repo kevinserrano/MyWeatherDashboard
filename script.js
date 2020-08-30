@@ -20,6 +20,7 @@ $(document).ready(function () {
     //Adding event listener to my search button
     $("#button").on("click", function () {
         event.preventDefault()
+
         //make sure event listener is working
         console.log("working")
 
@@ -35,8 +36,11 @@ $(document).ready(function () {
         window.localStorage.setItem(userSearch, JSON.stringify(searchesSaved));
         //calling a function
         weatherInfo(userSearch);
+
         //appending new search to html
-        $(newSearch).prepend(userSearch + ("<br>"));
+        $(newSearch).prepend("<hr>" + userSearch + ("<br>"));
+        $(newSearch).attr("type", "button")
+
 
 
     });
@@ -45,6 +49,7 @@ $(document).ready(function () {
 });
 
 function weatherInfo(userSearch) {
+
     var nameTime = $("#main");
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + userSearch + "&units=imperial&APPID=" + apiKey;
     var currentTemp = $("#temp");
@@ -104,7 +109,7 @@ function weatherInfo(userSearch) {
             $(span).attr("style", "background-color:" + uvColor);
         })
 
-
+        // five day forcast call
         $.ajax({
             url: "https://api.openweathermap.org/data/2.5/forecast?q=" + userSearch + "&units=imperial&appid=" + apiKey,
             method: "GET"
@@ -130,15 +135,18 @@ function weatherInfo(userSearch) {
 
                     bodyDiv.append($("<p>").attr("class", "card-text").html("Temp: " + Math.floor(fiveDayResponse.list[i].main.temp) + " &#8457;"));
                     bodyDiv.append($("<p>").attr("class", "card-text").text("Humidity: " + fiveDayResponse.list[i].main.humidity + "%"));
-
+                    newCard.attr("style", "margin-left: 8px");
                 }
             }
 
+            empty()
 
 
 
+        });
+    });
 
-        })
-    })
+
+
 
 }
