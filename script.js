@@ -6,8 +6,19 @@ if (localStorage.getItem("userSearch") === null) {
     var searchesSaved = localStorage.getItem("userSearch").split(",").map(x => {
         return x
     });
+    for (var i = 0; i < searchesSaved.length; i++) {
+
+        $(newSearch).prepend("<hr type= 'button' </hr>" + searchesSaved[i])
+    }
+
+
+
+
 
 }
+
+
+
 
 
 var apiKey = "6441e6e31c53654c07024f7ffc57d21a";
