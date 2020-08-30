@@ -8,16 +8,16 @@ if (localStorage.getItem("userSearch") === null) {
     });
     for (var i = 0; i < searchesSaved.length; i++) {
 
-        $(newSearch).prepend("<hr type= 'button' </hr>" + searchesSaved[i])
+        $(newSearch).prepend("<button type= 'button'  id=newCity" + [i] + ">" +
+            searchesSaved[i] + "</button>" + "<br>");
     }
-
-
-
-
-
 }
 
+$("button").on("click", function () {
+    userSearch = $("#" + this.id).text()
+    weatherInfo(userSearch)
 
+})
 
 
 
@@ -55,7 +55,7 @@ $(document).ready(function () {
         weatherInfo(userSearch);
 
         //appending new search to html
-        $(newSearch).prepend("<hr>" + userSearch + ("<br>"));
+        $(newSearch).prepend("<button>" + userSearch + "</button>" + ("<br>"));
         $(newSearch).attr("type", "button")
         $(newSearch).addClass("type", "card-body")
 
