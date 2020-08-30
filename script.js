@@ -40,6 +40,8 @@ $(document).ready(function () {
         //appending new search to html
         $(newSearch).prepend("<hr>" + userSearch + ("<br>"));
         $(newSearch).attr("type", "button")
+        $(newSearch).addClass("type", "card-body")
+
 
 
 
