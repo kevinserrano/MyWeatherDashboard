@@ -6,14 +6,16 @@ if (localStorage.getItem("userSearch") === null) {
     var searchesSaved = localStorage.getItem("userSearch").split(",").map(x => {
         return x
     });
+
+
     for (var i = 0; i < searchesSaved.length; i++) {
 
-        $(newSearch).prepend("<button type= 'button'  id=newCity" + [i] + ">" +
-            searchesSaved[i] + "</button>" + "<br>");
+        $(newSearch).prepend("<li class= list-group-item type= 'button'  id=newCity" + [i] + ">" +
+            searchesSaved[i] + "</li>");
     }
 }
 
-$("button").on("click", function () {
+$("li").on("click", function () {
     userSearch = $("#" + this.id).text()
     weatherInfo(userSearch)
 
@@ -55,7 +57,7 @@ $(document).ready(function () {
         weatherInfo(userSearch);
 
         //appending new search to html
-        $(newSearch).prepend("<button>" + userSearch + "</button>" + ("<br>"));
+        $(newSearch).prepend("<li class= list-group-item>" + userSearch);
         $(newSearch).attr("type", "button")
         $(newSearch).addClass("type", "card-body")
 
@@ -134,7 +136,7 @@ function weatherInfo(userSearch) {
             method: "GET"
         }).then(function (fiveDayResponse) {
             console.log(fiveDayResponse)
-
+            weekWeather.text("")
             for (var i = 0; i < fiveDayResponse.list.length; i++) {
                 if (fiveDayResponse.list[i].dt_txt.indexOf("12:00:00") !== -1) {
                     var newCol = $("<div>").attr("class", "fivecards");
