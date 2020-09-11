@@ -11,6 +11,8 @@ When you search for a city you are then presented with current and future condit
 
 
 
+A web browser such as Google Ch!rome, Internet Explorer, Safari or Firefox is needed to run the application.
+
+The application can be accessed via the following link:https://kevinserrano.github.io/MyWeatherDashboard/
 
 
-https://kevinserrano.github.io/MyWeatherDashboard/
